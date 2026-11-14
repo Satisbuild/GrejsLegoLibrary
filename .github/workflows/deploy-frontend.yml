@@ -33,8 +33,10 @@ jobs:
           API_BASE_URL: ${{ vars.API_BASE_URL }}
         run: |
           if [ -z "$API_BASE_URL" ]; then
-            echo "::error::Repository-variablen API_BASE_URL er ikke sat."
-            exit 1
+            # Siden publiceres stadig, men login/konti virker først, når backend kører
+            # på en server, og variablen er sat.
+            echo "::warning::Repository-variablen API_BASE_URL er ikke sat – login og konti virker ikke på den publicerede side endnu."
+            exit 0
           fi
           case "$API_BASE_URL" in https://*) ;; *) echo "::error::API_BASE_URL skal starte med https://"; exit 1;; esac
           printf "export const API_BASE_URL = '%s';\n" "${API_BASE_URL%/}" > frontend/assets/js/config.js
