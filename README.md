@@ -159,7 +159,25 @@ Testene starter en midlertidig MongoDB i hukommelsen via `mongodb-memory-server`
 
 ## Deployment
 
-### Anbefalet: Coolify (API og frontend på ét domæne)
+### Anbefalet: på den fælles server (`/lego`)
+
+GrejsLegoLibrary kan køre i den samme Express-server som de andre projekter (repoet `Satisbuild/Backend`, Coolify på `grejsdata.systematisk.dk`). Den bruger serverens `MONGO_URL` med sin egen database, `grejs-lego`, og serverer både siden og API'et under `/lego/`:
+
+- Siden: `https://grejsdata.systematisk.dk/lego/`
+- API: `https://grejsdata.systematisk.dk/lego/api/...`
+
+Opdatér serveren efter ændringer her:
+
+```bash
+cd backend
+node scripts/copy-to-server.mjs "C:/Users/<dig>/Desktop/Codening/Backend"
+```
+
+Commit og push derefter Backend-repoet. Sæt `LEGO_SESSION_SECRET` (og evt. `LEGO_CATALOG_API_KEY`) i Coolify. Detaljerne står i `LEGO-API.md` i Backend-repoet. `backend/src/mount.js` er indgangen, som serveren monterer.
+
+Vil du også bruge GitHub Pages, så sæt repository-variablen `API_BASE_URL=https://grejsdata.systematisk.dk/lego`. Sæt desuden `LEGO_FRONTEND_ORIGIN=https://satisbuild.github.io` og `LEGO_COOKIE_SAMESITE=none` på serveren. Login virker så ikke i Safari, som blokerer cookies på tværs af domæner. Brug derfor helst `/lego/`-adressen.
+
+### Alternativ: egen Coolify (API og frontend på ét domæne)
 
 `docker-compose.yml` i repo-roden kører én service, `app`, der serverer både API'et og frontend (`SERVE_FRONTEND=true`). Siden og API'et ligger derfor på samme adresse, så login-cookien virker i alle browsere, også Safari. MongoDB er ekstern og kører ikke i compose-stakken.
 
@@ -219,13 +237,13 @@ journalctl -u grejslego-backend -f        # se loggen
 
 Sæt en HTTPS reverse proxy foran backend. Se `deploy/nginx.conf.example` og brug fx `certbot --nginx` til certifikatet. Backend lytter kun lokalt på port 3000 bag proxyen.
 
-### Backend → Docker (alternativ)
+### Backend → Docker uden Coolify
 
 ```bash
-cd backend
-docker build -t grejslego-backend .
-docker run -d --name grejslego-backend --restart unless-stopped \
-  --env-file /etc/grejslego/backend.env -p 127.0.0.1:3000:3000 grejslego-backend
+# fra repo-roden (Dockerfile ligger her og tager både backend/ og frontend/ med)
+docker build -t grejslego .
+docker run -d --name grejslego --restart unless-stopped \
+  --env-file /etc/grejslego/backend.env -e TRUST_PROXY=1 -p 127.0.0.1:3000:3000 grejslego
 ```
 
 ### MongoDB i produktion

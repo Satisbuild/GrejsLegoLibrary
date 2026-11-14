@@ -15,13 +15,18 @@ export function redactMongoUri(uri) {
   }
 }
 
-export async function connectDatabase(uri) {
-  mongoose.connection.on('disconnected', () => logger.warn('MongoDB-forbindelsen blev afbrudt.'));
-  mongoose.connection.on('reconnected', () => logger.info('MongoDB-forbindelsen er genoprettet.'));
-  mongoose.connection.on('error', (err) => logger.error('MongoDB-fejl:', err.message));
+let listenersAdded = false;
 
-  await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000 });
-  logger.info(`Forbundet til MongoDB (${redactMongoUri(uri)})`);
+export async function connectDatabase(uri, { dbName } = {}) {
+  if (!listenersAdded) {
+    listenersAdded = true;
+    mongoose.connection.on('disconnected', () => logger.warn('MongoDB-forbindelsen blev afbrudt.'));
+    mongoose.connection.on('reconnected', () => logger.info('MongoDB-forbindelsen er genoprettet.'));
+    mongoose.connection.on('error', (err) => logger.error('MongoDB-fejl:', err.message));
+  }
+
+  await mongoose.connect(uri, { serverSelectionTimeoutMS: 10000, dbName });
+  logger.info(`Forbundet til MongoDB (${redactMongoUri(uri)}${dbName ? `, database ${dbName}` : ''})`);
   await ensureIndexes();
   return mongoose.connection;
 }

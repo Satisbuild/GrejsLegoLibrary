@@ -19,7 +19,7 @@ async function main() {
   }
 
   try {
-    await connectDatabase(config.mongodbUri);
+    await connectDatabase(config.mongodbUri, { dbName: config.mongoDbName });
   } catch (err) {
     logger.error(`Kunne ikke forbinde til MongoDB: ${err.name}`);
     process.exit(1); // systemd/Docker genstarter processen

@@ -75,7 +75,7 @@ export function createApp({ config, mongoClient, catalogProvider, disableRateLim
     secure: config.cookieSecure,
     sameSite: config.cookieSameSite,
     maxAge: config.sessionMaxAgeDays * 24 * 60 * 60 * 1000,
-    path: '/',
+    path: config.cookiePath,
   };
 
   const api = express.Router();
@@ -107,7 +107,7 @@ export function createApp({ config, mongoClient, catalogProvider, disableRateLim
 
   // Valgfrit: server frontend fra samme proces (praktisk til lokal udvikling).
   if (config.serveFrontend) {
-    app.use(express.static(FRONTEND_DIR, { extensions: ['html'] }));
+    app.use(express.static(config.frontendDir || FRONTEND_DIR, { extensions: ['html'] }));
   }
 
   app.use(notFoundHandler);

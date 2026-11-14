@@ -48,13 +48,18 @@ export function loadConfig(env = process.env) {
     isTest: nodeEnv === 'test',
     port: int(env.PORT, 3000),
     mongodbUri: env.MONGODB_URI || '',
+    // Databasenavn, hvis det ikke står i MONGODB_URI (fx når serveren deles med andre projekter).
+    mongoDbName: env.MONGODB_DB || undefined,
     sessionSecret: env.SESSION_SECRET || '',
     sessionMaxAgeDays: int(env.SESSION_MAX_AGE_DAYS, 14),
     frontendOrigins,
     cookieSameSite: sameSite,
     cookieSecure: bool(env.COOKIE_SECURE, isProduction),
+    // Cookie-sti: '/' normalt, '/lego' når appen er monteret under en sti på en delt server.
+    cookiePath: env.COOKIE_PATH || '/',
     trustProxy: parseTrustProxy(env.TRUST_PROXY),
     serveFrontend: bool(env.SERVE_FRONTEND, false),
+    frontendDir: env.FRONTEND_DIR || undefined, // standard: ../frontend i forhold til backend/
     catalog: {
       provider: (env.LEGO_CATALOG_PROVIDER || 'rebrickable').toLowerCase(),
       apiKey: env.LEGO_CATALOG_API_KEY || '',
@@ -75,8 +80,9 @@ export function loadConfig(env = process.env) {
   if (sameSite === 'none' && !config.cookieSecure) {
     errors.push('COOKIE_SAMESITE=none kræver COOKIE_SECURE=true (HTTPS).');
   }
-  if (isProduction && frontendOrigins.length === 0) {
-    errors.push('FRONTEND_ORIGIN skal sættes i produktion.');
+  // Serveres frontend fra samme domæne, er FRONTEND_ORIGIN kun nødvendig for ekstra domæner.
+  if (isProduction && frontendOrigins.length === 0 && !config.serveFrontend) {
+    errors.push('FRONTEND_ORIGIN skal sættes i produktion (eller SERVE_FRONTEND=true).');
   }
 
   if (errors.length) {

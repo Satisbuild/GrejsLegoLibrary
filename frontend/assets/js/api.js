@@ -17,13 +17,19 @@ const NO_BACKEND =
   'Kan ikke få kontakt til GrejsLegoLibrary-serveren. Tjek din internetforbindelse – ' +
   'eller, hvis du kører siden lokalt, at backend er startet (se README).';
 
+// Uden API_BASE_URL ligger API'et ved siden af siderne: /api lokalt, /lego/api når
+// siden serveres fra /lego/ på en delt server. Relativ sti følger sidens mappe.
+function apiUrl(path) {
+  return API_BASE_URL ? `${API_BASE_URL}/api${path}` : `api${path}`;
+}
+
 export async function api(path, { method = 'GET', body } = {}) {
   const headers = { 'X-Requested-With': 'GrejsLegoLibrary', Accept: 'application/json' };
   if (body !== undefined) headers['Content-Type'] = 'application/json';
 
   let res;
   try {
-    res = await fetch(`${API_BASE_URL}/api${path}`, {
+    res = await fetch(apiUrl(path), {
       method,
       headers,
       credentials: 'include',
