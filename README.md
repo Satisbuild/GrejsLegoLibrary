@@ -47,9 +47,11 @@ GrejsLegoLibrary/
 │   │   ├── app.js             Express-app
 │   │   └── server.js          startpunkt
 │   ├── test/                  automatiske tests (node:test + in-memory MongoDB)
+│   ├── scripts/demo.js       lokal demo uden MongoDB (npm run demo)
 │   ├── .env.example
-│   ├── Dockerfile
 │   └── package.json
+├── Dockerfile                 én container med API + frontend
+├── docker-compose.yml         til Coolify / docker compose
 ├── deploy/                    systemd-service og nginx-eksempel
 ├── .github/workflows/         GitHub Pages-deployment af frontend
 └── index.html                 viderestilling til frontend/ (hvis repo-roden publiceres)
@@ -157,7 +159,28 @@ Testene starter en midlertidig MongoDB i hukommelsen via `mongodb-memory-server`
 
 ## Deployment
 
-Frontend og backend deployes uafhængigt af hinanden.
+### Anbefalet: Coolify (API og frontend på ét domæne)
+
+`docker-compose.yml` i repo-roden kører én service, `app`, der serverer både API'et og frontend (`SERVE_FRONTEND=true`). Siden og API'et ligger derfor på samme adresse, så login-cookien virker i alle browsere, også Safari. MongoDB er ekstern og kører ikke i compose-stakken.
+
+1. I Coolify: opret en **Docker Compose**-ressource fra dette repo (branch `main`, compose-fil `docker-compose.yml`).
+2. Sæt domænet på `app`-servicen med port 3000, fx `https://lego.systematisk.dk:3000`.
+3. Under **Environment Variables**:
+
+   | Variabel | Værdi |
+   |---|---|
+   | `MONGODB_URI` | forbindelsesstrengen til din MongoDB, fx `mongodb://<bruger>:<adgangskode>@<host>:27017/GrejsLegoLibrary?authSource=admin&directConnection=true` |
+   | `SESSION_SECRET` | mindst 32 tilfældige tegn: `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"` |
+   | `FRONTEND_ORIGIN` | sidens adresse uden port og skråstreg, fx `https://lego.systematisk.dk` |
+   | `LEGO_CATALOG_API_KEY` | (valgfri) din Rebrickable-nøgle |
+
+4. Deploy. Uden de tre første variabler stopper deployet med det samme med en forklaring. Tjek bagefter `https://<domæne>/api/health`.
+
+`NODE_ENV=production`, `TRUST_PROXY=1` og `SERVE_FRONTEND=true` er allerede sat i compose-filen. Lokalt kan samme opsætning køres med en `.env` i repo-roden og `docker compose up -d --build`.
+
+Med denne løsning er GitHub Pages ikke nødvendig. Vil du *også* have siden på GitHub Pages, så se nedenfor.
+
+### Alternativ: frontend og backend hver for sig
 
 ### Cookies og domæner
 

@@ -1,0 +1,29 @@
+# Coolify: opret en "Docker Compose"-ressource fra dette repo og sæt domænet på
+# `app`-servicen med port 3000 (fx https://lego.systematisk.dk:3000).
+# Coolifys proxy router til containeren, så der publiceres ingen host-port – kun `expose`.
+# MongoDB er ekstern. Hemmeligheder sættes i Coolifys Environment Variables, aldrig her.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    expose:
+      - "3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      SERVE_FRONTEND: "true"
+      TRUST_PROXY: "1"
+      MONGODB_URI: ${MONGODB_URI:?Sæt MONGODB_URI til den eksterne MongoDB}
+      SESSION_SECRET: ${SESSION_SECRET:?Sæt SESSION_SECRET (mindst 32 tilfældige tegn)}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:?Sæt FRONTEND_ORIGIN til sidens adresse, fx https://lego.systematisk.dk}
+      COOKIE_SAMESITE: ${COOKIE_SAMESITE:-lax}
+      LEGO_CATALOG_PROVIDER: ${LEGO_CATALOG_PROVIDER:-rebrickable}
+      LEGO_CATALOG_API_KEY: ${LEGO_CATALOG_API_KEY:-}
+      CATALOG_CACHE_TTL_DAYS: ${CATALOG_CACHE_TTL_DAYS:-30}
+      SESSION_MAX_AGE_DAYS: ${SESSION_MAX_AGE_DAYS:-14}
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
