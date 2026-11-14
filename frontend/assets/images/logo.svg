@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GrejsLegoLibrary">
+  <!-- GrejsLegoLibrary-ikon: en gul 2x2-klods med en blå "bogryg" -->
+  <rect x="4" y="22" width="56" height="38" rx="8" fill="#e0a800"/>
+  <rect x="4" y="20" width="56" height="34" rx="8" fill="#ffc928"/>
+  <rect x="12" y="10" width="16" height="12" rx="3" fill="#e0a800"/>
+  <rect x="36" y="10" width="16" height="12" rx="3" fill="#e0a800"/>
+  <rect x="12" y="8" width="16" height="10" rx="3" fill="#ffd95c"/>
+  <rect x="36" y="8" width="16" height="10" rx="3" fill="#ffd95c"/>
+  <rect x="14" y="30" width="7" height="16" rx="2" fill="#1e6bd6"/>
+  <rect x="23" y="30" width="7" height="16" rx="2" fill="#d63a2f"/>
+  <rect x="32" y="30" width="7" height="16" rx="2" fill="#2f9a4a"/>
+  <rect x="41" y="31" width="7" height="15" rx="2" fill="#1c2230" transform="rotate(12 44.5 38.5)"/>
+</svg>

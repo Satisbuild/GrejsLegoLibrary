@@ -1,0 +1,48 @@
+# Publicerer frontend/ til GitHub Pages.
+# Kræver: Settings → Pages → Source = "GitHub Actions"
+# og repository-variablen API_BASE_URL (Settings → Secrets and variables → Actions → Variables),
+# fx https://api.grejslego.dk. Variablen er en offentlig adresse – ikke en hemmelighed.
+name: Deploy frontend til GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths: ['frontend/**', '.github/workflows/deploy-frontend.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Skriv API-adresse i config.js
+        env:
+          API_BASE_URL: ${{ vars.API_BASE_URL }}
+        run: |
+          if [ -z "$API_BASE_URL" ]; then
+            echo "::error::Repository-variablen API_BASE_URL er ikke sat."
+            exit 1
+          fi
+          case "$API_BASE_URL" in https://*) ;; *) echo "::error::API_BASE_URL skal starte med https://"; exit 1;; esac
+          printf "export const API_BASE_URL = '%s';\n" "${API_BASE_URL%/}" > frontend/assets/js/config.js
+          cat frontend/assets/js/config.js
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
+    <meta name="robots" content="noindex" />
+    <title>Wishlist · GrejsLegoLibrary</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script type="module" src="assets/js/pages/wishlist.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Spring til indhold</a>
+    <header id="site-header" class="site-header"></header>
+
+    <main id="main" class="container" tabindex="-1">
+      <div class="page-head">
+        <div>
+          <h1>Wishlist</h1>
+          <p>De sæt, du drømmer om – prioritér dem, og flyt dem til samlingen, når de er købt.</p>
+        </div>
+      </div>
+
+      <div id="lookup"></div>
+
+      <section class="section" aria-labelledby="wishes-heading">
+        <div class="toolbar toolbar-5" id="toolbar">
+          <div class="field field-search">
+            <label for="filter-q">Søg i ønskelisten</label>
+            <input type="search" id="filter-q" placeholder="Navn eller sætnummer" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="filter-theme">Tema</label>
+            <select id="filter-theme"><option value="">Alle temaer</option></select>
+          </div>
+          <div class="field">
+            <label for="filter-priority">Prioritet</label>
+            <select id="filter-priority">
+              <option value="">Alle</option>
+              <option value="high">Høj</option>
+              <option value="normal">Normal</option>
+              <option value="low">Lav</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="filter-status">Status</label>
+            <select id="filter-status">
+              <option value="wanted">Ønsket</option>
+              <option value="purchased">Købt</option>
+              <option value="">Alle</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="sort">Sortér efter</label>
+            <select id="sort">
+              <option value="priority">Prioritet</option>
+              <option value="added">Senest tilføjet</option>
+              <option value="name">Navn (A–Å)</option>
+              <option value="setNumber">Sætnummer</option>
+              <option value="year-desc">Udgivelsesår (nyeste)</option>
+              <option value="price-asc">Ønsket pris (lavest)</option>
+              <option value="pieces-desc">Antal klodser (flest)</option>
+            </select>
+          </div>
+        </div>
+        <h2 id="wishes-heading" class="visually-hidden">Dine ønsker</h2>
+        <p class="result-count" id="result-count" aria-live="polite"></p>
+        <div id="items"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>GrejsLegoLibrary er et uafhængigt hobbyprojekt og er ikke tilknyttet eller godkendt af LEGO Group. Sætdata fra <a href="https://rebrickable.com/" rel="noopener noreferrer">Rebrickable</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

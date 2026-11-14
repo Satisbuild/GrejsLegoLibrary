@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
+    <meta name="description" content="GrejsLegoLibrary – dit personlige bibliotek over LEGO-sæt du ejer og drømmer om." />
+    <title>GrejsLegoLibrary – dit personlige LEGO-bibliotek</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script type="module" src="assets/js/pages/home.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Spring til indhold</a>
+    <header id="site-header" class="site-header"></header>
+
+    <main id="main" class="container" tabindex="-1">
+      <section class="hero">
+        <div>
+          <h1>Hold styr på <span class="mark">hver eneste klods</span> i din samling</h1>
+          <p class="lead">
+            GrejsLegoLibrary er dit personlige LEGO-bibliotek. Skriv et sætnummer, så finder vi sættet for dig –
+            og du kan gemme det i din samling eller på din ønskeliste.
+          </p>
+          <div class="btn-row" id="hero-actions">
+            <a class="btn btn-primary" href="register.html">Opret gratis konto</a>
+            <a class="btn" href="login.html">Log ind</a>
+          </div>
+        </div>
+        <svg class="hero-art" viewBox="0 0 400 320" role="img" aria-label="Stablede klodser i rød, gul, blå og grøn">
+          <g>
+            <rect x="40" y="200" width="320" height="90" rx="12" fill="#1e6bd6" />
+            <rect x="70" y="180" width="50" height="26" rx="6" fill="#1e6bd6" />
+            <rect x="175" y="180" width="50" height="26" rx="6" fill="#1e6bd6" />
+            <rect x="280" y="180" width="50" height="26" rx="6" fill="#1e6bd6" />
+            <rect x="40" y="200" width="320" height="18" rx="9" fill="#ffffff" opacity="0.12" />
+          </g>
+          <g>
+            <rect x="80" y="110" width="200" height="80" rx="12" fill="#d63a2f" />
+            <rect x="102" y="90" width="46" height="26" rx="6" fill="#d63a2f" />
+            <rect x="212" y="90" width="46" height="26" rx="6" fill="#d63a2f" />
+            <rect x="80" y="110" width="200" height="16" rx="8" fill="#ffffff" opacity="0.14" />
+          </g>
+          <g>
+            <rect x="230" y="40" width="120" height="70" rx="12" fill="#ffc928" />
+            <rect x="248" y="20" width="36" height="24" rx="6" fill="#ffc928" />
+            <rect x="296" y="20" width="36" height="24" rx="6" fill="#ffc928" />
+            <rect x="230" y="40" width="120" height="14" rx="7" fill="#ffffff" opacity="0.25" />
+          </g>
+          <g>
+            <rect x="290" y="120" width="70" height="70" rx="12" fill="#2f9a4a" />
+            <rect x="306" y="100" width="38" height="24" rx="6" fill="#2f9a4a" />
+          </g>
+          <text x="200" y="258" text-anchor="middle" font-family="system-ui, sans-serif" font-size="30" font-weight="800" fill="#ffffff">75192</text>
+        </svg>
+      </section>
+
+      <section class="features" aria-label="Funktioner">
+        <article class="feature">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></svg>
+          </div>
+          <h3>Automatisk opslag</h3>
+          <p>Skriv fx 75192, og se navn, tema, år, klodser og billede med det samme.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M21 8 12 3 3 8v8l9 5 9-5z" /><path d="M3 8l9 5 9-5M12 13v8" /></svg>
+          </div>
+          <h3>Min samling</h3>
+          <p>Registrér antal, stand, æske, vejledning, købsdato og pris – og find alt igen med søgning og filtre.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z" /></svg>
+          </div>
+          <h3>Ønskeliste</h3>
+          <p>Prioritér dine drømmesæt, sæt en maksimal pris, og flyt dem til samlingen, når de er købt.</p>
+        </article>
+        <article class="feature">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M3 3v18h18M7 16v-5M12 16V7M17 16v-8" /></svg>
+          </div>
+          <h3>Statistik</h3>
+          <p>Se hvor mange sæt, eksemplarer og klodser du har, og hvordan samlingen fordeler sig på temaer.</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>GrejsLegoLibrary er et uafhængigt hobbyprojekt og er ikke tilknyttet eller godkendt af LEGO Group. LEGO® er et varemærke tilhørende LEGO Group.</p>
+      </div>
+    </footer>
+  </body>
+</html>

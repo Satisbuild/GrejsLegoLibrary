@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
+    <meta name="robots" content="noindex" />
+    <title>Dashboard · GrejsLegoLibrary</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script type="module" src="assets/js/pages/dashboard.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Spring til indhold</a>
+    <header id="site-header" class="site-header"></header>
+
+    <main id="main" class="container" tabindex="-1">
+      <div class="page-head">
+        <div class="welcome">
+          <div class="avatar" id="avatar" aria-hidden="true"></div>
+          <div>
+            <h1 id="welcome">Dashboard</h1>
+            <p>Her er et overblik over dit LEGO-bibliotek.</p>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="collection.html#add">+ Tilføj et sæt</a>
+          <a class="btn btn-yellow" href="wishlist.html#add">+ Tilføj et ønske</a>
+        </div>
+      </div>
+      <div id="dashboard-content" aria-live="polite"></div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>GrejsLegoLibrary er et uafhængigt hobbyprojekt og er ikke tilknyttet eller godkendt af LEGO Group. Sætdata fra <a href="https://rebrickable.com/" rel="noopener noreferrer">Rebrickable</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>

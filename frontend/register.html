@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
+    <title>Opret konto · GrejsLegoLibrary</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script type="module" src="assets/js/pages/register.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Spring til indhold</a>
+    <header id="site-header" class="site-header"></header>
+
+    <main id="main" class="container" tabindex="-1">
+      <div class="auth-wrap">
+        <div class="panel">
+          <h1>Opret konto</h1>
+          <p class="meta-line">Din samling og ønskeliste er private og kan kun ses af dig.</p>
+          <form id="register-form" class="form" novalidate>
+            <div class="form-alert" tabindex="-1" aria-live="polite"></div>
+            <div class="field">
+              <label for="username">Brugernavn</label>
+              <input type="text" id="username" name="username" autocomplete="username" required minlength="3" maxlength="30" aria-describedby="username-hint" />
+              <span class="hint" id="username-hint">3–30 tegn: bogstaver, tal, punktum, bindestreg eller understreg.</span>
+            </div>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email" autocomplete="email" required maxlength="254" />
+            </div>
+            <div class="field">
+              <label for="password">Adgangskode</label>
+              <input type="password" id="password" name="password" autocomplete="new-password" required minlength="10" maxlength="128" aria-describedby="password-hint" />
+              <div class="password-meter" aria-hidden="true"><span id="password-meter"></span></div>
+              <span class="hint" id="password-hint">Mindst 10 tegn med både bogstaver og tal.</span>
+            </div>
+            <div class="field">
+              <label for="confirmPassword">Gentag adgangskode</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password" required maxlength="128" />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Opret konto</button>
+          </form>
+        </div>
+        <p class="auth-alt">Har du allerede en konto? <a href="login.html">Log ind</a></p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>GrejsLegoLibrary er et uafhængigt hobbyprojekt og er ikke tilknyttet eller godkendt af LEGO Group.</p>
+      </div>
+    </footer>
+  </body>
+</html>
