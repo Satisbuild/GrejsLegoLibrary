@@ -3,9 +3,9 @@ import { handleApiError, requireUser } from '../layout.js';
 import { setCard } from '../set-card.js';
 import { PRIORITY_LABELS, alertBox, emptyState, formatNumber, formatPrice, formatTotal, h, loadingBlock } from '../ui.js';
 
-const user = await requireUser('dashboard');
-document.getElementById('welcome').textContent = `Hej, ${user.username}!`;
-document.getElementById('avatar').textContent = user.username.slice(0, 1);
+await requireUser('dashboard');
+document.getElementById('welcome').textContent = 'Velkommen tilbage!';
+document.getElementById('avatar').textContent = 'G';
 
 const root = document.getElementById('dashboard-content');
 const BAR_COLORS = ['var(--red)', 'var(--blue)', 'var(--yellow-dark)', 'var(--green)', 'var(--orange)'];

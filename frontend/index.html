@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; connect-src 'self' https://rebrickable.com; style-src 'self'; script-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
     <meta name="description" content="GrejsLegoLibrary – dit personlige bibliotek over LEGO-sæt du ejer og drømmer om." />
     <title>GrejsLegoLibrary – dit personlige LEGO-bibliotek</title>
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
@@ -20,11 +20,11 @@
           <h1>Hold styr på <span class="mark">hver eneste klods</span> i din samling</h1>
           <p class="lead">
             GrejsLegoLibrary er dit personlige LEGO-bibliotek. Skriv et sætnummer, så finder vi sættet for dig –
-            og du kan gemme det i din samling eller på din ønskeliste.
+            og du kan gemme det i din samling eller på din ønskeliste. Ingen konto nødvendig: alt gemmes i din browser.
           </p>
           <div class="btn-row" id="hero-actions">
-            <a class="btn btn-primary" href="register.html">Opret gratis konto</a>
-            <a class="btn" href="login.html">Log ind</a>
+            <a class="btn btn-primary" href="dashboard.html">Gå til dit dashboard</a>
+            <a class="btn" href="collection.html#add">Tilføj et sæt</a>
           </div>
         </div>
         <svg class="hero-art" viewBox="0 0 400 320" role="img" aria-label="Stablede klodser i rød, gul, blå og grøn">
@@ -89,6 +89,7 @@
 
     <footer class="site-footer">
       <div class="container">
+        <p>Dine data gemmes kun i denne browser – tag en sikkerhedskopi under Indstillinger en gang imellem.</p>
         <p>GrejsLegoLibrary er et uafhængigt hobbyprojekt og er ikke tilknyttet eller godkendt af LEGO Group. LEGO® er et varemærke tilhørende LEGO Group.</p>
       </div>
     </footer>
