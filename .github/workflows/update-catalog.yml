@@ -1,0 +1,59 @@
+# Opdaterer sætkataloget fra Rebrickable én gang om ugen (og kan startes i hånden).
+# Er der nye eller ændrede sæt, committes filen, og siden udgives igen.
+name: Opdatér sætkatalog
+
+on:
+  schedule:
+    - cron: '17 4 * * 1' # mandag kl. ca. 05/06 dansk tid
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit af den opdaterede katalogfil
+  actions: write # start udgivelsen bagefter
+
+concurrency:
+  group: update-catalog
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Byg kataloget
+        run: node scripts/build-catalog.mjs
+
+      # generatedAt ændres altid; commit kun, hvis selve sætdataene er ændret.
+      - name: Er der nye sæt?
+        id: diff
+        run: |
+          strip() { sed -E 's/"generatedAt":"[^"]*",//' "$1"; }
+          git show HEAD:frontend/assets/data/rebrickable-sets.json > /tmp/old.json
+          if [ "$(strip /tmp/old.json)" = "$(strip frontend/assets/data/rebrickable-sets.json)" ]; then
+            echo "Ingen ændringer i kataloget."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit og push
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/assets/data/rebrickable-sets.json
+          git commit -m "Opdatér sætkatalog fra Rebrickable"
+          git push
+
+      # Et push fra en workflow starter ikke andre workflows af sig selv,
+      # så udgivelsen startes eksplicit.
+      - name: Udgiv siden igen
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-frontend.yml --ref main

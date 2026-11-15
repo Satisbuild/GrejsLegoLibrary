@@ -35,13 +35,17 @@ python -m http.server 8000 --directory frontend
 
 ## Opdatér sætkataloget
 
-Kataloget ligger i `frontend/assets/data/rebrickable-sets.json` og bygges ud fra Rebrickables gratis datafiler. Kør dette en gang imellem, så nye sæt kommer med:
+Kataloget ligger i `frontend/assets/data/rebrickable-sets.json` og bygges ud fra Rebrickables gratis datafiler.
+
+**Det sker automatisk.** Workflowet `.github/workflows/update-catalog.yml` bygger kataloget hver mandag. Er der nye eller ændrede sæt, committer det filen og udgiver siden igen. Du kan også starte det i hånden under **Actions → Opdatér sætkatalog → Run workflow**.
+
+Da GitHub selv committer, skal du køre `git pull`, før du pusher dine egne ændringer.
+
+Du kan også opdatere kataloget på din egen computer (kræver Node.js 20 eller nyere, ingen `npm install`):
 
 ```bash
 node scripts/build-catalog.mjs
 ```
-
-Det kræver Node.js 20 eller nyere og ingen `npm install`. Commit og push derefter den opdaterede fil.
 
 ## Udgivelse (GitHub Pages)
 
