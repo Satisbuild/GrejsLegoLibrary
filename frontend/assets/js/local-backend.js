@@ -570,6 +570,18 @@ async function fetchFromBundled(setNumber) {
   };
 }
 
+/**
+ * Skrivebeskyttet opslag i det indbyggede katalog. Gemmer intet i localStorage, så en
+ * modtager af en delt ønskeliste ikke får fremmede sæt i sin egen database.
+ * @returns {Promise<object|null>} sættet eller null, hvis det ikke findes i kataloget
+ */
+export async function bundledSet(raw) {
+  const setNumber = normalizeSetNumber(String(raw ?? ''));
+  if (!setNumber) return null;
+  const data = await fetchFromBundled(setNumber);
+  return data ? { setNumber, source: 'rebrickable', ...data } : null;
+}
+
 /** Slår et sæt op: cache → indbygget katalog → Rebrickable-API (med nøgle). Gemmer selv i db. */
 async function catalogLookup(db, raw) {
   const setNumber = normalizeSetNumber(raw);

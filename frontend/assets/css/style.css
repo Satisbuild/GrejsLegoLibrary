@@ -1579,3 +1579,29 @@ dialog.modal::backdrop {
 .grid-2 > .panel + .panel {
   margin-top: 0;
 }
+
+/* ---------- Del ønskeliste ---------- */
+
+.share-intro {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.share-options {
+  display: grid;
+  gap: 0;
+}
+
+.share-actions .btn {
+  flex: 1 1 auto;
+}
+
+#share-link {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  background: var(--surface-2);
+}
+
+#items > .alert + .cards {
+  margin-top: 16px;
+}

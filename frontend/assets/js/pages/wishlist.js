@@ -3,6 +3,7 @@ import { openMarkPurchasedDialog, openWishForm } from '../forms.js';
 import { handleApiError, requireUser } from '../layout.js';
 import { fillSelect, matchesQuery, matchesTheme, sortItems, themeLabel, themeOptions } from '../list-tools.js';
 import { setCard } from '../set-card.js';
+import { SHARE_ICON, openShareDialog } from '../share.js';
 import { mountSetLookup } from '../set-lookup.js';
 import {
   ICONS,
@@ -29,7 +30,18 @@ const el = {
   priority: document.getElementById('filter-priority'),
   status: document.getElementById('filter-status'),
   sort: document.getElementById('sort'),
+  share: document.getElementById('share-btn'),
 };
+
+el.share.prepend(icon(SHARE_ICON, { size: 18 }));
+el.share.addEventListener('click', () => {
+  const wanted = sortItems(
+    state.items.filter((i) => i.status === 'wanted'),
+    'priority',
+  );
+  if (!wanted.length) return toast('Der er ingen ønsker at dele endnu.', 'error');
+  openShareDialog(wanted);
+});
 
 const state = { items: [], loaded: false };
 
@@ -143,6 +155,7 @@ function wishCard(wish) {
 
 function render() {
   if (!state.loaded) return;
+  el.share.hidden = !state.items.some((i) => i.status === 'wanted');
 
   if (!state.items.length) {
     el.count.textContent = '';

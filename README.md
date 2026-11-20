@@ -11,6 +11,7 @@ Et personligt LEGO-bibliotek i browseren. Skriv et sætnummer (fx `75192`), så 
 - **Sætopslag:** Et indbygget katalog med cirka 28.000 sæt fra [Rebrickable](https://rebrickable.com/) viser navn, tema, år, antal klodser, minifigurer og billede. Det virker uden nøgle. Findes et sæt ikke, kan det indtastes manuelt; der opfindes aldrig data.
 - **Min samling:** Antal, stand (ny/åbnet/brugt), æske, byggevejledning, købsdato, købspris og noter. Du kan redigere, slette (med bekræftelse) og have flere eksemplarer af samme sæt. Der er beskyttelse mod utilsigtede dubletter, søgning, filter på tema og år, sortering og gitter- eller listevisning.
 - **Ønskeliste:** Prioritet, maksimal pris og noter. Når et sæt er købt, kan det markeres og flyttes til samlingen.
+- **Del ønskelisten:** Knappen *Del ønskeliste* laver et link, som kan sendes på SMS, Messenger eller mail (eller kopieres som tekst). Hele listen ligger komprimeret i linkets `#`-del, så modtageren bare klikker på linket og ser listen med billeder på `onskeliste.html`. Der er ingen download, ingen konto, og intet sendes til en server. Du vælger selv, om maks. pris og noter skal med. Linket er et øjebliksbillede, så ændrer du listen, skal du sende et nyt link.
 - **Dashboard:** Statistik over sæt, eksemplarer, klodser, minifigurer, købspris og temaer, plus de senest tilføjede sæt og dine vigtigste ønsker.
 - **Indstillinger:**
   - Valgfri Rebrickable API-nøgle til helt nye sæt, der ikke er med i kataloget endnu.
@@ -60,6 +61,7 @@ GrejsLegoLibrary/
 │   ├── index.html             forside
 │   ├── dashboard.html, collection.html, wishlist.html
 │   ├── profile.html           Indstillinger
+│   ├── onskeliste.html        visning af en delt ønskeliste (åbnes via link)
 │   └── assets/
 │       ├── css/style.css
 │       ├── images/            logo og favicon
@@ -67,6 +69,7 @@ GrejsLegoLibrary/
 │       └── js/
 │           ├── local-backend.js  al datalogik: localStorage, validering, katalogopslag, statistik, sikkerhedskopi
 │           ├── api.js            siderne kalder local-backend.js gennem denne
+│           ├── share.js          deling af ønskelisten via link (kodning, dialog)
 │           ├── ui.js, layout.js, forms.js, set-lookup.js, set-card.js, list-tools.js
 │           └── pages/            ét script pr. side
 ├── scripts/build-catalog.mjs  bygger sætkataloget
